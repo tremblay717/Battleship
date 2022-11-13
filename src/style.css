@@ -1,0 +1,37 @@
+@font-face {
+    font-family: 'BattleFont';
+    src: url('./Blockletter.otf') format('otf');
+    font-weight: 600;
+    font-style: normal;
+}
+
+body {
+    background: url(/images/sea.jpg);
+    background-size: cover;
+    height: 100vh;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.692);
+    border-radius: 8px;
+    height: 15vh;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 2%;
+    font-size: 6vw;
+    color: white;
+    font-family: 'BattleFont';
+}
+
+.gameDiv {
+    background-color: rgba(0, 0, 0, 0.692);
+    border-radius: 8px;
+    height: 75vh;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 1%;
+    font-size: 6vw;
+}
