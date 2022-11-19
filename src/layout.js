@@ -19,7 +19,7 @@ export default function layout() {
     const playerName = document.createElement('span');
     playerName.className = 'name';
     playerName.textContent = 'Human';
-    playerName.style.marginTop='4%'
+    playerName.style.marginTop = '4%'
     playerDiv.appendChild(playerName);
 
     const playerGrid = document.createElement('div');
@@ -28,32 +28,58 @@ export default function layout() {
     playerDiv.appendChild(playerGrid);
 
 
-    const computerDiv = document.createElement('div');
-    computerDiv.className = 'computerDiv';
-    gameDiv.appendChild(computerDiv);
+    // const computerDiv = document.createElement('div');
+    // computerDiv.className = 'computerDiv';
+    // gameDiv.appendChild(computerDiv);
 
-    const computerName = document.createElement('span');
-    computerName.className = 'name';
-    computerName.textContent = 'Computer';
-    computerName.style.marginTop='4%'
-    computerDiv.appendChild(computerName);
+    // const computerName = document.createElement('span');
+    // computerName.className = 'name';
+    // computerName.textContent = 'Computer';
+    // computerName.style.marginTop = '4%'
+    // computerDiv.appendChild(computerName);
 
-    const computerGrid = document.createElement('div');
-    computerGrid.className = 'grid';
-    computerGrid.id = 'computerGrid'
-    computerDiv.appendChild(computerGrid);
+    const shipDiv = document.createElement('div');
+    shipDiv.className = 'shipDiv';
+    shipDiv.id = 'shipDiv'
+    gameDiv.appendChild(shipDiv);
 
-    const grids = [playerGrid, computerGrid];
+    const shipSpan = document.createElement('span');
+    shipSpan.textContent = 'Place your Ships in grid';
+    shipSpan.className = 'name'
+    shipSpan.style.marginTop = '4%'
+    shipDiv.appendChild(shipSpan);
+
+    const rotateSpan = document.createElement('span');
+    rotateSpan.textContent = 'Click ship to change orientation';
+    rotateSpan.className = 'rotate'
+    rotateSpan.style.fontSize = '1.25rem'
+    rotateSpan.style.cursor = 'pointer'
+    rotateSpan.style.color = 'white'
+    shipDiv.appendChild(rotateSpan);
+
+    const shipGrid = document.createElement('div');
+    shipGrid.className = 'shipGrid';
+    shipGrid.id = 'shipGrid'
+    shipDiv.appendChild(shipGrid);
+
+
+    // const computerGrid = document.createElement('div');
+    // computerGrid.className = 'grid';
+    // computerGrid.id = 'computerGrid'
+    // computerDiv.appendChild(computerGrid);
+
+    const grids = [playerGrid];
 
     for (let i = 0; i < grids.length; i++) {
         let j = 1;
         while (j <= 100) {
 
             const tile = document.createElement('div');
-            tile.id = `${j}-${grids[i].id}`
+            tile.id = j
             tile.className = 'tile';
             grids[i].appendChild(tile);
             j++
         }
     }
+
 }
