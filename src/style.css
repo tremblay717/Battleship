@@ -74,7 +74,7 @@ body {
     align-items: center;
     align-content: flex-start;
     justify-content: flex-start;
-    gap:20px;
+    gap: 20px;
 }
 
 .computerDiv {
@@ -88,7 +88,7 @@ body {
     align-items: center;
     align-content: flex-start;
     justify-content: flex-start;
-    gap:20px;
+    gap: 20px;
 }
 
 /* .playerDiv {
@@ -116,7 +116,15 @@ body {
     background-color: rgb(76, 81, 94);
     border: solid black;
     border-width: 1px;
-    
+
+}
+
+.computertile {
+    height: auto;
+    width: auto;
+    background-color: rgb(76, 81, 94);
+    border: solid black;
+    border-width: 1px;
 }
 
 .shipGrid {
@@ -125,4 +133,9 @@ body {
     grid-template: repeat(5, auto) / auto;
     gap: 15%;
     justify-items: center;
+}
+
+.instructionDiv {
+    display: flex;
+    align-items: center;
 }

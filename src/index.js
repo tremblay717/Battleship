@@ -1,5 +1,6 @@
 import './style.css';
 import layout from './layout.js';
+import computerGrid from './computerGrid.js';
 import Carrier from '/images/carrier.png';
 import Carrier90 from '/images/carrier90.png';
 import Battleship from '/images/battleship.png';
@@ -22,6 +23,7 @@ carrier.setAttribute('style', 'cursor:move;');
 carrier.draggable = true;
 carrier.style.height = '45px';
 carrier.style.width = '225px';
+
 document.querySelector('.shipGrid').appendChild(carrier);
 carrier.addEventListener('drop', dropCarrier);
 carrier.addEventListener('dragover', allowDrop);
@@ -389,7 +391,7 @@ function dropSubmarine(ev) {
 function dropDestroyer(ev) {
 
     let num = Number(this.id);
-    
+
     if (destroyer.src == Destroyer) {
         if (document.getElementById(this.id).style.backgroundColor === 'transparent' || document.getElementById(num + 1).style.backgroundColor === 'transparent') {
             // nothing
@@ -420,37 +422,8 @@ function dropDestroyer(ev) {
             destroyer.style.position = 'absolute';
             destroyer.draggable = false;
             destroyer.removeEventListener('click', rotateDestroyer);
-            document.getElementById('shipDiv').remove();
-
-            const computerDiv = document.createElement('div');
-            computerDiv.className = 'computerDiv';
-            document.querySelector('.gameDiv').appendChild(computerDiv);
-
-            const computerName = document.createElement('span');
-            computerName.className = 'name';
-            computerName.textContent = 'Computer';
-            computerName.style.marginTop = '4%';
-            computerDiv.appendChild(computerName);
-
-            const computerGrid = document.createElement('div');
-            computerGrid.className = 'grid';
-            computerGrid.id = 'computerGrid';
-            computerDiv.appendChild(computerGrid);
-
-            const grids = [computerGrid];
-
-            for (let i = 0; i < grids.length; i++) {
-                let j = 1;
-                while (j <= 100) {
-
-                    const tile = document.createElement('div');
-                    tile.id = j;
-                    tile.className = 'tile';
-                    grids[i].appendChild(tile);
-                    j++;
-                }
-            }
         }
+        computerGrid();
     } else {
         if (document.getElementById(this.id).style.backgroundColor === 'transparent' || document.getElementById(num + 10).style.backgroundColor === 'transparent') {
             // nothing
@@ -473,37 +446,8 @@ function dropDestroyer(ev) {
             destroyer.style.position = 'absolute';
             destroyer.draggable = false;
             destroyer.removeEventListener('click', rotateDestroyer);
-            document.getElementById('shipDiv').remove();
-
-            const computerDiv = document.createElement('div');
-            computerDiv.className = 'computerDiv';
-            document.querySelector('.gameDiv').appendChild(computerDiv);
-
-            const computerName = document.createElement('span');
-            computerName.className = 'name';
-            computerName.textContent = 'Computer';
-            computerName.style.marginTop = '4%';
-            computerDiv.appendChild(computerName);
-
-            const computerGrid = document.createElement('div');
-            computerGrid.className = 'grid';
-            computerGrid.id = 'computerGrid';
-            computerDiv.appendChild(computerGrid);
-
-            const grids = [computerGrid];
-
-            for (let i = 0; i < grids.length; i++) {
-                let j = 1;
-                while (j <= 100) {
-
-                    const tile = document.createElement('div');
-                    tile.id = j;
-                    tile.className = 'tile';
-                    grids[i].appendChild(tile);
-                    j++;
-                }
-            }
         }
+        computerGrid();
     }
 }
 
