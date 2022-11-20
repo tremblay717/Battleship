@@ -1,15 +1,15 @@
 import './style.css';
-import layout from './layout.js'
-import Carrier from '/images/carrier.png'
-import Carrier90 from '/images/carrier90.png'
-import Battleship from '/images/battleship.png'
-import Battleship90 from '/images/battleship90.png'
-import Cruiser from '/images/cruiser.png'
-import Submarine from '/images/submarine.png'
-import Destroyer from '/images/destroyer.png'
-import Cruiser90 from '/images/cruiser90.png'
-import Submarine90 from '/images/submarine90.png'
-import Destroyer90 from '/images/destroyer90.png'
+import layout from './layout.js';
+import Carrier from '/images/carrier.png';
+import Carrier90 from '/images/carrier90.png';
+import Battleship from '/images/battleship.png';
+import Battleship90 from '/images/battleship90.png';
+import Cruiser from '/images/cruiser.png';
+import Submarine from '/images/submarine.png';
+import Destroyer from '/images/destroyer.png';
+import Cruiser90 from '/images/cruiser90.png';
+import Submarine90 from '/images/submarine90.png';
+import Destroyer90 from '/images/destroyer90.png';
 
 layout();
 
@@ -26,7 +26,7 @@ document.querySelector('.shipGrid').appendChild(carrier);
 carrier.addEventListener('drop', dropCarrier);
 carrier.addEventListener('dragover', allowDrop);
 carrier.addEventListener('dragstart', drag);
-carrier.addEventListener('click', rotateCarrier)
+carrier.addEventListener('click', rotateCarrier);
 
 let items = document.querySelectorAll('.tile');
 
@@ -154,10 +154,9 @@ function dropCarrier(ev) {
 }
 
 function dropBattleShip(ev) {
-
+    let num = Number(this.id)
     if (battleship.src == Battleship) {
-
-        if (document.getElementById(this.id).style.backgroundColor === 'transparent') {
+        if (document.getElementById(this.id).style.backgroundColor === 'transparent' || document.getElementById(num + 1).style.backgroundColor === 'transparent' || document.getElementById(num + 2).style.backgroundColor === 'transparent' || document.getElementById(num + 3).style.backgroundColor === 'transparent') {
             // nothing
         } else if (this.id > 7 && this.id <= 10 ||
             this.id > 17 && this.id <= 20 ||
@@ -198,7 +197,7 @@ function dropBattleShip(ev) {
         }
     } else {
 
-        if (document.getElementById(this.id).style.backgroundColor === 'transparent') {
+        if (document.getElementById(this.id).style.backgroundColor === 'transparent' || document.getElementById(num + 10).style.backgroundColor === 'transparent' || document.getElementById(num + 20).style.backgroundColor === 'transparent' || document.getElementById(num + 30).style.backgroundColor === 'transparent') {
             // nothing
         } else if (this.id >= 71) {
             // nothing
@@ -233,9 +232,11 @@ function dropBattleShip(ev) {
 
 function dropCruiser(ev) {
 
+    let num = Number(this.id)
+
     if (cruiser.src == Cruiser) {
 
-        if (document.getElementById(this.id).style.backgroundColor === 'transparent') {
+        if (document.getElementById(this.id).style.backgroundColor === 'transparent' || document.getElementById(num + 1).style.backgroundColor === 'transparent' || document.getElementById(num + 2).style.backgroundColor === 'transparent') {
             // nothing
         } else if (this.id > 8 && this.id <= 10 ||
             this.id > 18 && this.id <= 20 ||
@@ -275,7 +276,7 @@ function dropCruiser(ev) {
             submarine.addEventListener('dragstart', drag)
         }
     } else {
-        if (document.getElementById(this.id).style.backgroundColor === 'transparent') {
+        if (document.getElementById(this.id).style.backgroundColor === 'transparent' || document.getElementById(num + 10).style.backgroundColor === 'transparent' || document.getElementById(num + 20).style.backgroundColor === 'transparent') {
             // nothing
         } else if (this.id >= 81) {
             // nothing
@@ -309,10 +310,9 @@ function dropCruiser(ev) {
 }
 
 function dropSubmarine(ev) {
-
+    let num = Number(this.id)
     if (submarine.src == Submarine) {
-
-        if (document.getElementById(this.id).style.backgroundColor === 'transparent') {
+        if (document.getElementById(this.id).style.backgroundColor === 'transparent' || document.getElementById(num + 1).style.backgroundColor === 'transparent' || document.getElementById(num + 2).style.backgroundColor === 'transparent') {
             // nothing
         } else if (
             this.id > 8 && this.id <= 10 ||
@@ -354,7 +354,7 @@ function dropSubmarine(ev) {
         }
     } else {
 
-        if (document.getElementById(this.id).style.backgroundColor === 'transparent') {
+        if (document.getElementById(this.id).style.backgroundColor === 'transparent' || document.getElementById(num + 10).style.backgroundColor === 'transparent' || document.getElementById(num + 20).style.backgroundColor === 'transparent') {
             // nothing
         } else if (this.id >= 81) {
             // nothing
@@ -388,8 +388,10 @@ function dropSubmarine(ev) {
 
 function dropDestroyer(ev) {
 
+    let num = Number(this.id);
+    
     if (destroyer.src == Destroyer) {
-        if (document.getElementById(this.id).style.backgroundColor === 'transparent') {
+        if (document.getElementById(this.id).style.backgroundColor === 'transparent' || document.getElementById(num + 1).style.backgroundColor === 'transparent') {
             // nothing
         } else if (this.id > 9 && this.id <= 10 ||
             this.id > 19 && this.id <= 20 ||
@@ -450,7 +452,7 @@ function dropDestroyer(ev) {
             }
         }
     } else {
-        if (document.getElementById(this.id).style.backgroundColor === 'transparent') {
+        if (document.getElementById(this.id).style.backgroundColor === 'transparent' || document.getElementById(num + 10).style.backgroundColor === 'transparent') {
             // nothing
         } else if (this.id >= 91) {
             // nothing
