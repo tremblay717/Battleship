@@ -16,6 +16,7 @@ export default function computerGrid() {
     carrier.src = Carrier;
     carrier.style.height = '45px';
     carrier.style.width = '225px';
+    carrier.style.backgroundColor = 'red'
 
     const battleship = new Image();
     battleship.id = 'battleshipComputer';
@@ -57,16 +58,32 @@ export default function computerGrid() {
     computerGrid.id = 'computerGrid';
     computerDiv.appendChild(computerGrid);
 
+    const gameGrid = document.createElement('div');
+    gameGrid.className = 'grid overlay';
+    gameGrid.id = 'gameGrid';
+    computerDiv.appendChild(gameGrid);
+
+    let i = 1;
+    while (i <= 100) {
+        const tile = document.createElement('div');
+        tile.id = `${i}-Computer`;
+        tile.className = 'computertile';
+        // tile.addEventListener('click', testClick)
+        computerGrid.appendChild(tile);
+        i++;
+    }
 
     let j = 1;
     while (j <= 100) {
-        const tile = document.createElement('div');
-        tile.id = `${j}-Computer`;
-        tile.className = 'computertile';
-        tile.addEventListener('click', testClick)
-        computerGrid.appendChild(tile);
+        const tileComputer = document.createElement('div');
+        tileComputer.id = `${j}-ComputerGame`;
+        tileComputer.className = 'tileComputer';
+        tileComputer.addEventListener('click', testClick)
+        gameGrid.appendChild(tileComputer);
         j++;
     }
+
+
 
     // Generating ship position in computer screen
 
@@ -183,11 +200,30 @@ export default function computerGrid() {
     instructions.style.marginTop = '4%';
     instructionDiv.appendChild(instructions);
 
+    let playerArray = []
+
     function testClick() {
         const target = document.getElementById(this.id);
-        if (target.textContent === 'X') {
+        console.log(target)
+
+        if (target.textContent === 'X' || target.textContent === 'O') {
             // Nothing happens
         } else {
+
+            let targetHuman = undefined
+            let x = undefined;
+
+            while (x == undefined) {
+                let number = Math.floor(Math.random() * 101);
+                if (!playerArray.includes(number)) {
+                    playerArray.push(number);
+                    targetHuman = document.getElementById(number);
+                    break
+                }
+            }
+
+            console.log(targetHuman)
+
             target.style.textAlign = 'center';
             target.setAttribute('style', 'display:flex;align-content:center;justify-content:center;align-items:center;font-size:24px;text-align:center;color:red;');
             let ship = undefined;
@@ -199,6 +235,7 @@ export default function computerGrid() {
                     }
                 }
             }
+
             // Red 'O' if there's no ship on target
             if (ship === undefined) {
                 target.textContent = 'O';
@@ -206,21 +243,53 @@ export default function computerGrid() {
                 target.textContent = 'X';
                 ship.shipTiles.push(target)
                 ship.life--
-
                 if (ship.life === 0) {
                     computerShips = computerShips.filter(element => element.name !== ship.name);
-                    console.log(ship.name)
-                    console.log(computerShips);
-                }
 
+                }
                 if (computerShips.length === 0) {
                     const computerTiles = document.querySelectorAll('.computertile')
                     for (let i = 0; i < computerTiles.length; i++) {
                         computerTiles[i].removeEventListener('click', testClick);
                     }
                 }
+
+                // if (target.textContent === 'X') {
+                //     // Nothing happens
+                // } else {
+                //     target.style.textAlign = 'center';
+                //     target.setAttribute('style', 'display:flex;align-content:center;justify-content:center;align-items:center;font-size:24px;text-align:center;color:red;');
+                //     let ship = undefined;
+                //     for (let i = 0; i < computerShips.length; i++) {
+                //         for (let key in computerShips[i]) {
+                //             if (computerShips[i][key] === target) {
+                //                 ship = computerShips[i]
+                //                 break
+                //             }
+                //         }
+                //     }
+                //     // Red 'O' if there's no ship on target
+                //     if (ship === undefined) {
+                //         target.textContent = 'O';
+                //     } else { // Red X if we hit target
+                //         target.textContent = 'X';
+                //         ship.shipTiles.push(target)
+                //         ship.life--
+                //         if (ship.life === 0) {
+                //             computerShips = computerShips.filter(element => element.name !== ship.name);
+                //             console.log(ship.name)
+                //             console.log(computerShips);
+                //         }
+                //         if (computerShips.length === 0) {
+                //             const computerTiles = document.querySelectorAll('.computertile')
+                //             for (let i = 0; i < computerTiles.length; i++) {
+                //                 computerTiles[i].removeEventListener('click', testClick);
+                //             }
+                //         }
+                //     }
+                //     console.log(ship)
+                // }
             }
-            console.log(ship)
         }
     }
 }

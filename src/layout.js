@@ -56,7 +56,7 @@ export default function layout() {
 
         const tile = document.createElement('div');
         tile.id = j;
-        tile.className = 'tile';
+        tile.className = 'playerTile';
         playerGrid.appendChild(tile);
         j++;
     }

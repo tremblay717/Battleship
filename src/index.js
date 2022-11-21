@@ -30,7 +30,7 @@ carrier.addEventListener('dragover', allowDrop);
 carrier.addEventListener('dragstart', drag);
 carrier.addEventListener('click', rotateCarrier);
 
-let items = document.querySelectorAll('.tile');
+let items = document.querySelectorAll('.playerTile');
 
 for (let i = 0; i < items.length; i++) {
     items[i].addEventListener('drop', dropCarrier);
@@ -73,6 +73,58 @@ destroyer.style.height = '45px';
 destroyer.style.width = '90px';
 document.querySelector('.shipGrid').appendChild(destroyer);
 
+const HumanCarrier = {
+    name: 'Carrier',
+    position1: undefined,
+    position2: undefined,
+    position3: undefined,
+    position4: undefined,
+    position5: undefined,
+    shipTiles: [],
+    life: 5,
+    src: undefined
+}
+
+const HumanBattleship = {
+    name: 'BattleShip',
+    position1: undefined,
+    position2: undefined,
+    position3: undefined,
+    position4: undefined,
+    shipTiles: [],
+    life: 4,
+    src: undefined
+}
+
+const HumanCruiser = {
+    name: 'Cruiser',
+    position1: undefined,
+    position2: undefined,
+    position3: undefined,
+    shipTiles: [],
+    life: 3,
+    src: undefined
+}
+
+const HumanSubmarine = {
+    name: 'Submarine',
+    position1: undefined,
+    position2: undefined,
+    position3: undefined,
+    shipTiles: [],
+    life: 3,
+    src: undefined
+}
+
+const HumanDestroyer = {
+    name: 'Destroyer',
+    position1: undefined,
+    position2: undefined,
+    shipTiles: [],
+    life: 2,
+    src: undefined
+}
+
 function drag(ev) {
     ev.dataTransfer.setData('text', ev.target.id);
 
@@ -83,9 +135,7 @@ function allowDrop(ev) {
 }
 
 function dropCarrier(ev) {
-
     if (carrier.src == Carrier) {
-
         if (this.id > 6 && this.id <= 10 ||
             this.id > 16 && this.id <= 20 ||
             this.id > 26 && this.id <= 30 ||
@@ -103,13 +153,21 @@ function dropCarrier(ev) {
             ev.target.appendChild(document.getElementById('carrier'));
             let num = Number(this.id)
             let tiles = [document.getElementById(this.id), document.getElementById(num + 1), document.getElementById(num + 2), document.getElementById(num + 3), document.getElementById(num + 4)]
+
+            HumanCarrier.position1 = document.getElementById(this.id);
+            HumanCarrier.position2 = document.getElementById(num + 1);
+            HumanCarrier.position3 = document.getElementById(num + 2);
+            HumanCarrier.position4 = document.getElementById(num + 3);
+            HumanCarrier.position5 = document.getElementById(num + 4);
+            HumanCarrier.src = Carrier;
+
             for (let i = 0; i < tiles.length; i++) {
                 tiles[i].style.backgroundColor = 'transparent';
             }
-            carrier.style.height = this.offsetHeight
-            carrier.style.position = 'absolute'
+            carrier.style.height = this.offsetHeight;
+            carrier.style.position = 'absolute';
             carrier.draggable = false;
-            shipDiv.style.height = '700px'
+            shipDiv.style.height = '700px';
 
             for (let i = 0; i < items.length; i++) {
                 items[i].removeEventListener('drop', dropCarrier)
@@ -133,20 +191,28 @@ function dropCarrier(ev) {
             ev.target.appendChild(document.getElementById('carrier'));
             let num = Number(this.id)
             let tiles = [document.getElementById(this.id), document.getElementById(num + 10), document.getElementById(num + 20), document.getElementById(num + 30), document.getElementById(num + 40)]
+
+            HumanCarrier.position1 = document.getElementById(this.id);
+            HumanCarrier.position2 = document.getElementById(num + 10);
+            HumanCarrier.position3 = document.getElementById(num + 20);
+            HumanCarrier.position4 = document.getElementById(num + 30);
+            HumanCarrier.position5 = document.getElementById(num + 40);
+            HumanCarrier.src = Carrier90;
+
             for (let i = 0; i < tiles.length; i++) {
                 tiles[i].style.backgroundColor = 'transparent';
             }
-            carrier.style.height = this.offsetHeight
+            carrier.style.height = this.offsetHeight;
             carrier.style.position = 'absolute'
             carrier.draggable = false;
-            shipDiv.style.height = '700px'
+            shipDiv.style.height = '700px';
 
             for (let i = 0; i < items.length; i++) {
-                items[i].removeEventListener('drop', dropCarrier)
-                items[i].addEventListener('drop', dropBattleShip)
+                items[i].removeEventListener('drop', dropCarrier);
+                items[i].addEventListener('drop', dropBattleShip);
             }
-            carrier.removeEventListener('click', rotateCarrier)
-            battleship.draggable = true
+            carrier.removeEventListener('click', rotateCarrier);
+            battleship.draggable = true;
             battleship.addEventListener('click', rotateBattleship);
             battleship.addEventListener('drop', dropBattleShip);
             battleship.addEventListener('dragover', allowDrop);
@@ -156,7 +222,7 @@ function dropCarrier(ev) {
 }
 
 function dropBattleShip(ev) {
-    let num = Number(this.id)
+    let num = Number(this.id);
     if (battleship.src == Battleship) {
         if (document.getElementById(this.id).style.backgroundColor === 'transparent' || document.getElementById(num + 1).style.backgroundColor === 'transparent' || document.getElementById(num + 2).style.backgroundColor === 'transparent' || document.getElementById(num + 3).style.backgroundColor === 'transparent') {
             // nothing
@@ -175,27 +241,33 @@ function dropBattleShip(ev) {
             ev.preventDefault();
             var data = ev.dataTransfer.getData("text");
             ev.target.appendChild(document.getElementById('battleship'));
-            let num = Number(this.id)
             let tiles = [document.getElementById(this.id), document.getElementById(num + 1), document.getElementById(num + 2), document.getElementById(num + 3)]
+
+            HumanBattleship.position1 = document.getElementById(this.id)
+            HumanBattleship.position2 = document.getElementById(num + 1)
+            HumanBattleship.position3 = document.getElementById(num + 2)
+            HumanBattleship.position4 = document.getElementById(num + 3)
+            HumanBattleship.src = Battleship
+
             for (let i = 0; i < tiles.length; i++) {
                 tiles[i].style.backgroundColor = 'transparent';
             }
 
             for (let i = 0; i < items.length; i++) {
-                items[i].removeEventListener('drop', dropBattleShip)
-                items[i].addEventListener('drop', dropCruiser)
+                items[i].removeEventListener('drop', dropBattleShip);
+                items[i].addEventListener('drop', dropCruiser);
             }
             shipDiv.style.height = '700px'
 
-            battleship.style.height = this.offsetHeight
-            battleship.style.position = 'absolute'
+            battleship.style.height = this.offsetHeight;
+            battleship.style.position = 'absolute';
             battleship.draggable = false;
             battleship.removeEventListener('click', rotateBattleship);
             cruiser.draggable = true;
-            cruiser.addEventListener('click', rotateCruiser)
-            cruiser.addEventListener('drop', dropCruiser)
-            cruiser.addEventListener('dragover', allowDrop)
-            cruiser.addEventListener('dragstart', drag)
+            cruiser.addEventListener('click', rotateCruiser);
+            cruiser.addEventListener('drop', dropCruiser);
+            cruiser.addEventListener('dragover', allowDrop);
+            cruiser.addEventListener('dragstart', drag);
         }
     } else {
 
@@ -207,37 +279,40 @@ function dropBattleShip(ev) {
             ev.preventDefault();
             var data = ev.dataTransfer.getData("text");
             ev.target.appendChild(document.getElementById('battleship'));
-            let num = Number(this.id)
             let tiles = [document.getElementById(this.id), document.getElementById(num + 10), document.getElementById(num + 20), document.getElementById(num + 30)]
+
+            HumanBattleship.position1 = document.getElementById(this.id);
+            HumanBattleship.position2 = document.getElementById(num + 10);
+            HumanBattleship.position3 = document.getElementById(num + 20);
+            HumanBattleship.position4 = document.getElementById(num + 30);
+            HumanBattleship.src = Battleship90;
+
             for (let i = 0; i < tiles.length; i++) {
                 tiles[i].style.backgroundColor = 'transparent';
             }
             for (let i = 0; i < items.length; i++) {
-                items[i].removeEventListener('drop', dropBattleShip)
-                items[i].addEventListener('drop', dropCruiser)
+                items[i].removeEventListener('drop', dropBattleShip);
+                items[i].addEventListener('drop', dropCruiser);
             }
-            battleship.style.height = this.offsetHeight
-            battleship.style.position = 'absolute'
+            battleship.style.height = this.offsetHeight;
+            battleship.style.position = 'absolute';
             battleship.draggable = false;
             battleship.removeEventListener('click', rotateBattleship);
 
-            shipDiv.style.height = '700px'
+            shipDiv.style.height = '700px';
 
             cruiser.draggable = true;
-            cruiser.addEventListener('click', rotateCruiser)
-            cruiser.addEventListener('drop', dropCruiser)
-            cruiser.addEventListener('dragover', allowDrop)
-            cruiser.addEventListener('dragstart', drag)
+            cruiser.addEventListener('click', rotateCruiser);
+            cruiser.addEventListener('drop', dropCruiser);
+            cruiser.addEventListener('dragover', allowDrop);
+            cruiser.addEventListener('dragstart', drag);
         }
     }
 }
 
 function dropCruiser(ev) {
-
-    let num = Number(this.id)
-
+    let num = Number(this.id);
     if (cruiser.src == Cruiser) {
-
         if (document.getElementById(this.id).style.backgroundColor === 'transparent' || document.getElementById(num + 1).style.backgroundColor === 'transparent' || document.getElementById(num + 2).style.backgroundColor === 'transparent') {
             // nothing
         } else if (this.id > 8 && this.id <= 10 ||
@@ -255,27 +330,33 @@ function dropCruiser(ev) {
             ev.preventDefault();
             var data = ev.dataTransfer.getData("text");
             ev.target.appendChild(document.getElementById('cruiser'));
-            let num = Number(this.id)
-            let tiles = [document.getElementById(this.id), document.getElementById(num + 1), document.getElementById(num + 2)]
+            let num = Number(this.id);
+            let tiles = [document.getElementById(this.id), document.getElementById(num + 1), document.getElementById(num + 2)];
+
+            HumanCruiser.position1 = document.getElementById(this.id);
+            HumanCruiser.position2 = document.getElementById(num + 1);
+            HumanCruiser.position3 = document.getElementById(num + 2);
+            HumanCruiser.src = Cruiser;
+
             for (let i = 0; i < tiles.length; i++) {
                 tiles[i].style.backgroundColor = 'transparent';
             }
 
             for (let i = 0; i < items.length; i++) {
-                items[i].removeEventListener('drop', dropCruiser)
-                items[i].addEventListener('drop', dropSubmarine)
+                items[i].removeEventListener('drop', dropCruiser);
+                items[i].addEventListener('drop', dropSubmarine);
             }
-            var height = this.offsetHeight - 1
-            cruiser.style.height = height
-            cruiser.style.position = 'absolute'
+            var height = this.offsetHeight;
+            cruiser.style.height = this.offsetHeight;
+            cruiser.style.position = 'absolute';
             cruiser.draggable = false;
-            shipDiv.style.height = '700px'
+            shipDiv.style.height = '700px';
 
-            submarine.draggable = true
-            submarine.addEventListener('click', rotateSubmarine)
-            submarine.addEventListener('drop', dropSubmarine)
-            submarine.addEventListener('dragover', allowDrop)
-            submarine.addEventListener('dragstart', drag)
+            submarine.draggable = true;
+            submarine.addEventListener('click', rotateSubmarine);
+            submarine.addEventListener('drop', dropSubmarine);
+            submarine.addEventListener('dragover', allowDrop);
+            submarine.addEventListener('dragstart', drag);
         }
     } else {
         if (document.getElementById(this.id).style.backgroundColor === 'transparent' || document.getElementById(num + 10).style.backgroundColor === 'transparent' || document.getElementById(num + 20).style.backgroundColor === 'transparent') {
@@ -286,8 +367,13 @@ function dropCruiser(ev) {
             ev.preventDefault();
             var data = ev.dataTransfer.getData("text");
             ev.target.appendChild(document.getElementById('cruiser'));
-            let num = Number(this.id)
-            let tiles = [document.getElementById(this.id), document.getElementById(num + 10), document.getElementById(num + 20)]
+            let tiles = [document.getElementById(this.id), document.getElementById(num + 10), document.getElementById(num + 20)];
+
+            HumanCruiser.position1 = document.getElementById(this.id);
+            HumanCruiser.position2 = document.getElementById(num + 10);
+            HumanCruiser.position3 = document.getElementById(num + 20);
+            HumanCruiser.src = Cruiser90;
+
             for (let i = 0; i < tiles.length; i++) {
                 tiles[i].style.backgroundColor = 'transparent';
             }
@@ -296,23 +382,22 @@ function dropCruiser(ev) {
                 items[i].removeEventListener('drop', dropCruiser)
                 items[i].addEventListener('drop', dropSubmarine)
             }
-            var height = this.offsetHeight - 1
-            cruiser.style.height = height
-            cruiser.style.position = 'absolute'
+            cruiser.style.height = this.offsetHeight;
+            cruiser.style.position = 'absolute';
             cruiser.draggable = false;
-            shipDiv.style.height = '700px'
-            submarine.draggable = true
+            shipDiv.style.height = '700px';
+            submarine.draggable = true;
             cruiser.removeEventListener('click', rotateCruiser);
-            submarine.addEventListener('click', rotateSubmarine)
-            submarine.addEventListener('drop', dropSubmarine)
-            submarine.addEventListener('dragover', allowDrop)
-            submarine.addEventListener('dragstart', drag)
+            submarine.addEventListener('click', rotateSubmarine);
+            submarine.addEventListener('drop', dropSubmarine);
+            submarine.addEventListener('dragover', allowDrop);
+            submarine.addEventListener('dragstart', drag);
         }
     }
 }
 
 function dropSubmarine(ev) {
-    let num = Number(this.id)
+    let num = Number(this.id);
     if (submarine.src == Submarine) {
         if (document.getElementById(this.id).style.backgroundColor === 'transparent' || document.getElementById(num + 1).style.backgroundColor === 'transparent' || document.getElementById(num + 2).style.backgroundColor === 'transparent') {
             // nothing
@@ -335,6 +420,12 @@ function dropSubmarine(ev) {
             ev.target.appendChild(document.getElementById('submarine'));
             let num = Number(this.id)
             let tiles = [document.getElementById(this.id), document.getElementById(num + 1), document.getElementById(num + 2)]
+
+            HumanSubmarine.position1 = document.getElementById(this.id)
+            HumanSubmarine.position2 = document.getElementById(num + 1)
+            HumanSubmarine.position3 = document.getElementById(num + 2)
+            HumanSubmarine.src = Submarine
+
             for (let i = 0; i < tiles.length; i++) {
                 tiles[i].style.backgroundColor = 'transparent';
             }
@@ -347,8 +438,9 @@ function dropSubmarine(ev) {
             submarine.style.height = this.offsetHeight
             submarine.style.position = 'absolute'
             submarine.draggable = false;
-            destroyer.draggable = true;
             submarine.removeEventListener('click', rotateSubmarine);
+
+            destroyer.draggable = true;
             destroyer.addEventListener('click', rotateDestroyer);
             destroyer.addEventListener('drop', dropDestroyer);
             destroyer.addEventListener('dragover', allowDrop);
@@ -366,6 +458,12 @@ function dropSubmarine(ev) {
             ev.target.appendChild(document.getElementById('submarine'));
             let num = Number(this.id);
             let tiles = [document.getElementById(this.id), document.getElementById(num + 10), document.getElementById(num + 20)]
+
+            HumanSubmarine.position1 = document.getElementById(this.id);
+            HumanSubmarine.position2 = document.getElementById(num + 10);
+            HumanSubmarine.position3 = document.getElementById(num + 20);
+            HumanSubmarine.src = Submarine90;
+
             for (let i = 0; i < tiles.length; i++) {
                 tiles[i].style.backgroundColor = 'transparent';
             }
@@ -389,9 +487,7 @@ function dropSubmarine(ev) {
 }
 
 function dropDestroyer(ev) {
-
     let num = Number(this.id);
-
     if (destroyer.src == Destroyer) {
         if (document.getElementById(this.id).style.backgroundColor === 'transparent' || document.getElementById(num + 1).style.backgroundColor === 'transparent') {
             // nothing
@@ -411,12 +507,17 @@ function dropDestroyer(ev) {
             var data = ev.dataTransfer.getData("text");
             ev.target.appendChild(document.getElementById('destroyer'));
             let num = Number(this.id);
-            let tiles = [document.getElementById(this.id), document.getElementById(num + 1)]
+            let tiles = [document.getElementById(this.id), document.getElementById(num + 1)];
+
+            HumanDestroyer.position1 = document.getElementById(this.id);
+            HumanDestroyer.position2 = document.getElementById(num + 1);
+            HumanDestroyer.src = Destroyer;
+
             for (let i = 0; i < tiles.length; i++) {
                 tiles[i].style.backgroundColor = 'transparent';
             }
             for (let i = 0; i < items.length; i++) {
-                items[i].removeEventListener('drop', dropDestroyer)
+                items[i].removeEventListener('drop', dropDestroyer);
             }
             destroyer.style.height = this.offsetHeight;
             destroyer.style.position = 'absolute';
@@ -517,3 +618,5 @@ function rotateDestroyer() {
         shipDiv.style.height = '700px';
     }
 }
+
+let playerShips = [HumanCarrier, HumanBattleship, HumanCruiser, HumanSubmarine, HumanDestroyer];
