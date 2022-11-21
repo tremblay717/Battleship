@@ -90,11 +90,12 @@ export default function computerGrid() {
     // 1. Carrier :
 
     document.getElementById('12-Computer').appendChild(carrier)
-    const carrierTiles = [document.getElementById('12-Computer'), document.getElementById('13-Computer'), document.getElementById('14-Computer'), document.getElementById('15-Computer'), document.getElementById('16-Computer')]
+    const carrierTiles = [document.getElementById('12-ComputerGame'), document.getElementById('13-ComputerGame'), document.getElementById('14-ComputerGame'), document.getElementById('15-ComputerGame'), document.getElementById('16-ComputerGame')]
     for (let i = 0; i < carrierTiles.length; i++) {
         carrierTiles[i].style.backgroundColor = 'transparent';
     }
-    carrier.style.height = document.getElementById('12-Computer').offsetHeight;
+    carrier.style.height = '43px';
+    carrier.style.width = '223px';
     carrier.style.position = 'absolute';
 
     const ComputerCarrier = {
@@ -112,9 +113,9 @@ export default function computerGrid() {
     // 2. Battleship :
 
     document.getElementById('32-Computer').appendChild(battleship)
-    const battleshipTiles = [document.getElementById('32-Computer'), document.getElementById('33-Computer'), document.getElementById('34-Computer'), document.getElementById('35-Computer')]
+    const battleshipTiles = [document.getElementById('32-ComputerGame'), document.getElementById('33-ComputerGame'), document.getElementById('34-ComputerGame'), document.getElementById('35-ComputerGame')]
     for (let i = 0; i < battleshipTiles.length; i++) {
-        battleshipTiles[i].style.backgroundColor = 'transparent';
+        // battleshipTiles[i].style.backgroundColor = 'transparent';
     }
     battleship.style.height = document.getElementById('32-Computer').offsetHeight;
     battleship.style.position = 'absolute';
@@ -225,7 +226,6 @@ export default function computerGrid() {
             console.log(targetHuman)
 
             target.style.textAlign = 'center';
-            target.setAttribute('style', 'display:flex;align-content:center;justify-content:center;align-items:center;font-size:24px;text-align:center;color:red;');
             let ship = undefined;
             for (let i = 0; i < computerShips.length; i++) {
                 for (let key in computerShips[i]) {
@@ -239,16 +239,20 @@ export default function computerGrid() {
             // Red 'O' if there's no ship on target
             if (ship === undefined) {
                 target.textContent = 'O';
+                target.setAttribute('style', 'display:flex;align-content:center;justify-content:center;align-items:center;font-size:24px;text-align:center;color:red;');
+
             } else { // Red X if we hit target
                 target.textContent = 'X';
-                ship.shipTiles.push(target)
-                ship.life--
+                target.setAttribute('style', 'display:flex;align-content:center;justify-content:center;align-items:center;font-size:24px;text-align:center;color:red;background-color:rgba(0, 0, 0, 0.692);');
+
+                ship.shipTiles.push(target);
+                ship.life--;
                 if (ship.life === 0) {
                     computerShips = computerShips.filter(element => element.name !== ship.name);
 
                 }
                 if (computerShips.length === 0) {
-                    const computerTiles = document.querySelectorAll('.computertile')
+                    const computerTiles = document.querySelectorAll('.computertile');
                     for (let i = 0; i < computerTiles.length; i++) {
                         computerTiles[i].removeEventListener('click', testClick);
                     }
