@@ -11,6 +11,7 @@ import Destroyer from '/images/destroyer.png';
 import Cruiser90 from '/images/cruiser90.png';
 import Submarine90 from '/images/submarine90.png';
 import Destroyer90 from '/images/destroyer90.png';
+import Explosion from './explosion.wav';
 
 layout();
 
@@ -555,7 +556,7 @@ function dropDestroyer(ev) {
             destroyer.style.cursor = 'default';
             destroyer.removeEventListener('click', rotateDestroyer);
         }
-        computerGrid();
+        computerGrid(playerShips);
 
     } else {
         if (document.getElementById(this.id).style.backgroundColor === 'transparent' || document.getElementById(num + 10).style.backgroundColor === 'transparent') {
@@ -582,7 +583,7 @@ function dropDestroyer(ev) {
             destroyer.style.cursor = 'default';
             destroyer.removeEventListener('click', rotateDestroyer);
         }
-        computerGrid();
+        computerGrid(playerShips);
     }
 }
 

@@ -8,39 +8,45 @@ import Destroyer from '/images/destroyer.png';
 import Cruiser90 from '/images/cruiser90.png';
 import Submarine90 from '/images/submarine90.png';
 import Destroyer90 from '/images/destroyer90.png';
+import Explosion from './explosion.wav';
 
-export default function computerGrid() {
+export default function computerGrid(playerShips) {
+
+    console.log(playerShips)
+
+    const explosion = new Audio();
+    explosion.src = Explosion
 
     const carrier = new Image();
     carrier.id = 'carrier';
     carrier.src = Carrier;
-    carrier.style.height = '45px';
-    carrier.style.width = '225px';
+    carrier.style.height = '44px';
+    carrier.style.width = '224px';
     carrier.style.backgroundColor = 'red'
 
     const battleship = new Image();
     battleship.id = 'battleshipComputer';
     battleship.src = Battleship;
-    battleship.style.height = '45px';
-    battleship.style.width = '180px';
+    battleship.style.height = '44px';
+    battleship.style.width = '179px';
 
     const cruiser = new Image();
     cruiser.id = 'cruiser';
     cruiser.src = Cruiser;
-    cruiser.style.height = '45px';
-    cruiser.style.width = '135px';
+    cruiser.style.height = '44px';
+    cruiser.style.width = '134px';
 
     const submarine = new Image();
     submarine.id = 'submarine';
     submarine.src = Submarine;
-    submarine.style.height = '45px';
-    submarine.style.width = '135px';
+    submarine.style.height = '44px';
+    submarine.style.width = '134px';
 
     const destroyer = new Image();
     destroyer.id = 'destroyer';
     destroyer.src = Destroyer;
-    destroyer.style.height = '45px';
-    destroyer.style.width = '90px';
+    destroyer.style.height = '44px';
+    destroyer.style.width = '89px';
 
     document.getElementById('shipDiv').remove();
     const computerDiv = document.createElement('div');
@@ -63,16 +69,33 @@ export default function computerGrid() {
     gameGrid.id = 'gameGrid';
     computerDiv.appendChild(gameGrid);
 
+    const playerGameGrid = document.createElement('div');
+    playerGameGrid.className = 'grid overlay';
+    playerGameGrid.id = 'playerGameGrid';
+    document.querySelector('.playerDiv').appendChild(playerGameGrid);
+
+    // Overlay Grid where user can click on squares
+    let h = 1;
+    while (h <= 100) {
+        const tileComputer = document.createElement('div');
+        tileComputer.id = `${h}-playerGame`;
+        tileComputer.className = 'tilePlayer';
+        playerGameGrid.appendChild(tileComputer);
+        h++;
+    }
+
+
+    // Grid where images will be inserted into
     let i = 1;
     while (i <= 100) {
         const tile = document.createElement('div');
         tile.id = `${i}-Computer`;
         tile.className = 'computertile';
-        // tile.addEventListener('click', testClick)
         computerGrid.appendChild(tile);
         i++;
     }
 
+    // Overlay Grid where user can click on squares
     let j = 1;
     while (j <= 100) {
         const tileComputer = document.createElement('div');
@@ -83,9 +106,6 @@ export default function computerGrid() {
         j++;
     }
 
-
-
-    // Generating ship position in computer screen
 
     // 1. Carrier :
 
@@ -134,7 +154,7 @@ export default function computerGrid() {
     // 3. Cruiser :
 
     document.getElementById('56-Computer').appendChild(cruiser)
-    const cruiserTiles = [document.getElementById('56-Computer'), document.getElementById('57-Computer'), document.getElementById('58-Computer')]
+    const cruiserTiles = [document.getElementById('56-ComputerGame'), document.getElementById('57-ComputerGame'), document.getElementById('58-ComputerGame')]
     for (let i = 0; i < cruiserTiles.length; i++) {
         cruiserTiles[i].style.backgroundColor = 'transparent';
     }
@@ -153,7 +173,7 @@ export default function computerGrid() {
     // 4. Submarine :
 
     document.getElementById('72-Computer').appendChild(submarine)
-    const submarineTiles = [document.getElementById('72-Computer'), document.getElementById('73-Computer'), document.getElementById('74-Computer')]
+    const submarineTiles = [document.getElementById('72-ComputerGame'), document.getElementById('73-ComputerGame'), document.getElementById('74-ComputerGame')]
     for (let i = 0; i < submarineTiles.length; i++) {
         submarineTiles[i].style.backgroundColor = 'transparent';
     }
@@ -172,7 +192,7 @@ export default function computerGrid() {
     // 5. Destroyer :
 
     document.getElementById('88-Computer').appendChild(destroyer)
-    const destroyerTiles = [document.getElementById('88-Computer'), document.getElementById('89-Computer')]
+    const destroyerTiles = [document.getElementById('88-ComputerGame'), document.getElementById('89-ComputerGame')]
     for (let i = 0; i < destroyerTiles.length; i++) {
         destroyerTiles[i].style.backgroundColor = 'transparent';
     }
@@ -201,11 +221,11 @@ export default function computerGrid() {
     instructions.style.marginTop = '4%';
     instructionDiv.appendChild(instructions);
 
-    let playerArray = []
+    let playerArray = []; // Player strokes are stored in this array
+    let computerArray = []; // Computer strokes are stored in this array
 
     function testClick() {
         const target = document.getElementById(this.id);
-        console.log(target)
 
         if (target.textContent === 'X' || target.textContent === 'O') {
             // Nothing happens
@@ -216,14 +236,12 @@ export default function computerGrid() {
 
             while (x == undefined) {
                 let number = Math.floor(Math.random() * 101);
-                if (!playerArray.includes(number)) {
+                if (!playerArray.includes(number) && number !== 0) {
                     playerArray.push(number);
                     targetHuman = document.getElementById(number);
                     break
                 }
             }
-
-            console.log(targetHuman)
 
             target.style.textAlign = 'center';
             let ship = undefined;
@@ -239,60 +257,63 @@ export default function computerGrid() {
             // Red 'O' if there's no ship on target
             if (ship === undefined) {
                 target.textContent = 'O';
-                target.setAttribute('style', 'display:flex;align-content:center;justify-content:center;align-items:center;font-size:24px;text-align:center;color:red;');
+                target.setAttribute('style', 'display:flex;align-content:center;justify-content:center;align-items:center;font-size:24px;text-align:center;color:blue;');
 
             } else { // Red X if we hit target
                 target.textContent = 'X';
-                target.setAttribute('style', 'display:flex;align-content:center;justify-content:center;align-items:center;font-size:24px;text-align:center;color:red;background-color:rgba(0, 0, 0, 0.692);');
+                target.setAttribute('style', 'display:flex;align-content:center;justify-content:center;align-items:center;font-size:24px;text-align:center;color:blue;background-color:rgba(0, 0, 0, 0.692);');
+                explosion.play();
 
                 ship.shipTiles.push(target);
                 ship.life--;
+
                 if (ship.life === 0) {
                     computerShips = computerShips.filter(element => element.name !== ship.name);
 
                 }
                 if (computerShips.length === 0) {
-                    const computerTiles = document.querySelectorAll('.computertile');
+                    const computerTiles = document.querySelectorAll('.tileComputer');
+                    for (let i = 0; i < computerTiles.length; i++) {
+                        computerTiles[i].removeEventListener('click', testClick);
+                        targetHuman = undefined; // preventing computer to tag our player grid
+                        instructions.textContent = 'Game Over! You won!'
+
+                    }
+                }
+            }
+
+            let humanShip = undefined;
+
+            for (let i = 0; i < playerShips.length; i++) {
+                for (let key in playerShips[i]) {
+                    if (playerShips[i][key] === targetHuman) {
+                        humanShip = playerShips[i];
+                        break;
+                    }
+                }
+            }
+
+            if (humanShip === undefined) {
+                document.getElementById(`${targetHuman.id}-playerGame`).textContent = 'O';
+                document.getElementById(`${targetHuman.id}-playerGame`).setAttribute('style', 'display:flex;align-content:center;justify-content:center;align-items:center;font-size:24px;text-align:center;color:red;');
+            } else {
+                document.getElementById(`${targetHuman.id}-playerGame`).textContent = 'X';
+                document.getElementById(`${targetHuman.id}-playerGame`).setAttribute('style', 'display:flex;align-content:center;justify-content:center;align-items:center;font-size:24px;text-align:center;color:red;background-color:rgba(0, 0, 0, 0.692);');
+                explosion.play();
+
+                humanShip.life--;
+
+                if (humanShip.life === 0) {
+                    playerShips = playerShips.filter(element => element.name !== humanShip.name);
+
+                }
+                if (playerShips.length === 0) {
+                    const computerTiles = document.querySelectorAll('.tileComputer');
                     for (let i = 0; i < computerTiles.length; i++) {
                         computerTiles[i].removeEventListener('click', testClick);
                     }
+                    instructions.textContent = 'Game Over! You lost!'
                 }
-
-                // if (target.textContent === 'X') {
-                //     // Nothing happens
-                // } else {
-                //     target.style.textAlign = 'center';
-                //     target.setAttribute('style', 'display:flex;align-content:center;justify-content:center;align-items:center;font-size:24px;text-align:center;color:red;');
-                //     let ship = undefined;
-                //     for (let i = 0; i < computerShips.length; i++) {
-                //         for (let key in computerShips[i]) {
-                //             if (computerShips[i][key] === target) {
-                //                 ship = computerShips[i]
-                //                 break
-                //             }
-                //         }
-                //     }
-                //     // Red 'O' if there's no ship on target
-                //     if (ship === undefined) {
-                //         target.textContent = 'O';
-                //     } else { // Red X if we hit target
-                //         target.textContent = 'X';
-                //         ship.shipTiles.push(target)
-                //         ship.life--
-                //         if (ship.life === 0) {
-                //             computerShips = computerShips.filter(element => element.name !== ship.name);
-                //             console.log(ship.name)
-                //             console.log(computerShips);
-                //         }
-                //         if (computerShips.length === 0) {
-                //             const computerTiles = document.querySelectorAll('.computertile')
-                //             for (let i = 0; i < computerTiles.length; i++) {
-                //                 computerTiles[i].removeEventListener('click', testClick);
-                //             }
-                //         }
-                //     }
-                //     console.log(ship)
-                // }
             }
         }
     }
