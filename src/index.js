@@ -1,6 +1,6 @@
 import './style.css';
 import layout from './layout.js';
-import computerGrid from './computerGrid.js';
+import game from './game.js';
 import Carrier from '/images/carrier.png';
 import Carrier90 from '/images/carrier90.png';
 import Battleship from '/images/battleship.png';
@@ -11,7 +11,7 @@ import Destroyer from '/images/destroyer.png';
 import Cruiser90 from '/images/cruiser90.png';
 import Submarine90 from '/images/submarine90.png';
 import Destroyer90 from '/images/destroyer90.png';
-import Explosion from './explosion.wav';
+
 
 layout();
 
@@ -151,9 +151,8 @@ function dropCarrier(ev) {
             //nothing
         } else {
             ev.preventDefault();
-            var data = ev.dataTransfer.getData("text");
             ev.target.appendChild(document.getElementById('carrier'));
-            let num = Number(this.id)
+            let num = Number(this.id);
             let tiles = [document.getElementById(this.id), document.getElementById(num + 1), document.getElementById(num + 2), document.getElementById(num + 3), document.getElementById(num + 4)]
 
             HumanCarrier.position1 = document.getElementById(this.id);
@@ -181,11 +180,11 @@ function dropCarrier(ev) {
             carrier.removeEventListener('click', rotateCarrier);
             carrier.style.cursor = 'default';
 
-            battleship.draggable = true
-            battleship.addEventListener('click', rotateBattleship)
-            battleship.addEventListener('drop', dropBattleShip)
-            battleship.addEventListener('dragover', allowDrop)
-            battleship.addEventListener('dragstart', drag)
+            battleship.draggable = true;
+            battleship.addEventListener('click', rotateBattleship);
+            battleship.addEventListener('drop', dropBattleShip);
+            battleship.addEventListener('dragover', allowDrop);
+            battleship.addEventListener('dragstart', drag);
         }
     } else {
 
@@ -194,9 +193,8 @@ function dropCarrier(ev) {
         } else {
 
             ev.preventDefault();
-            var data = ev.dataTransfer.getData("text");
             ev.target.appendChild(document.getElementById('carrier'));
-            let num = Number(this.id)
+            let num = Number(this.id);
             let tiles = [document.getElementById(this.id), document.getElementById(num + 10), document.getElementById(num + 20), document.getElementById(num + 30), document.getElementById(num + 40)]
 
             HumanCarrier.position1 = document.getElementById(this.id);
@@ -250,7 +248,6 @@ function dropBattleShip(ev) {
             // nothing
         } else {
             ev.preventDefault();
-            var data = ev.dataTransfer.getData("text");
             ev.target.appendChild(document.getElementById('battleship'));
             let tiles = [document.getElementById(this.id), document.getElementById(num + 1), document.getElementById(num + 2), document.getElementById(num + 3)]
 
@@ -291,7 +288,6 @@ function dropBattleShip(ev) {
             // nothing
         } else {
             ev.preventDefault();
-            // var data = ev.dataTransfer.getData("text");
             ev.target.appendChild(document.getElementById('battleship'));
             let tiles = [document.getElementById(this.id), document.getElementById(num + 10), document.getElementById(num + 20), document.getElementById(num + 30)]
 
@@ -344,7 +340,6 @@ function dropCruiser(ev) {
             // nothing
         } else {
             ev.preventDefault();
-            var data = ev.dataTransfer.getData("text");
             ev.target.appendChild(document.getElementById('cruiser'));
             let num = Number(this.id);
             let tiles = [document.getElementById(this.id), document.getElementById(num + 1), document.getElementById(num + 2)];
@@ -385,7 +380,6 @@ function dropCruiser(ev) {
             // nothing
         } else {
             ev.preventDefault();
-            var data = ev.dataTransfer.getData("text");
             ev.target.appendChild(document.getElementById('cruiser'));
             let tiles = [document.getElementById(this.id), document.getElementById(num + 10), document.getElementById(num + 20)];
 
@@ -441,7 +435,6 @@ function dropSubmarine(ev) {
             // nothing
         } else {
             ev.preventDefault();
-            var data = ev.dataTransfer.getData("text");
             ev.target.appendChild(document.getElementById('submarine'));
             let num = Number(this.id)
             let tiles = [document.getElementById(this.id), document.getElementById(num + 1), document.getElementById(num + 2)]
@@ -481,7 +474,6 @@ function dropSubmarine(ev) {
             // nothing
         } else {
             ev.preventDefault();
-            var data = ev.dataTransfer.getData("text");
             ev.target.appendChild(document.getElementById('submarine'));
             let num = Number(this.id);
             let tiles = [document.getElementById(this.id), document.getElementById(num + 10), document.getElementById(num + 20)]
@@ -556,7 +548,7 @@ function dropDestroyer(ev) {
             destroyer.style.cursor = 'default';
             destroyer.removeEventListener('click', rotateDestroyer);
         }
-        computerGrid(playerShips);
+        game(playerShips);
 
     } else {
         if (document.getElementById(this.id).style.backgroundColor === 'transparent' || document.getElementById(num + 10).style.backgroundColor === 'transparent') {
@@ -583,7 +575,7 @@ function dropDestroyer(ev) {
             destroyer.style.cursor = 'default';
             destroyer.removeEventListener('click', rotateDestroyer);
         }
-        computerGrid(playerShips);
+        game(playerShips);
     }
 }
 
@@ -654,4 +646,5 @@ function rotateDestroyer() {
     }
 }
 
-let playerShips = [HumanCarrier, HumanBattleship, HumanCruiser, HumanSubmarine, HumanDestroyer];
+// Array that will be passed as a function argument
+let playerShips = [HumanCarrier, HumanBattleship, HumanCruiser, HumanSubmarine, HumanDestroyer]; 
