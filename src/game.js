@@ -350,7 +350,8 @@ export default function game(playerShips) {
                         instructions.textContent = `They sunk your ${humanShip.name.toLowerCase()}!`;
                     }
                     if (playerShips.length === 0) {
-                        removeFire(); // stopping the game 
+                        removeFire(); // stopping the game
+                        let ship = undefined;
                         instructions.textContent = 'Game Over! You lost!';
                         return;
                     }
