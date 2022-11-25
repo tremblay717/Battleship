@@ -1561,6 +1561,10 @@ function dropDestroyer(ev) {
             ev.target.appendChild(document.getElementById('destroyer'));
             let num = Number(this.id);
             let tiles = [document.getElementById(this.id), document.getElementById(num + 10)]
+            
+            HumanDestroyer.position1 = document.getElementById(this.id);
+            HumanDestroyer.position2 = document.getElementById(num + 10);
+            HumanDestroyer.src = _images_destroyer_png__WEBPACK_IMPORTED_MODULE_9__;
             for (let i = 0; i < tiles.length; i++) {
                 tiles[i].style.backgroundColor = 'transparent';
                 console.log(tiles[i]);
