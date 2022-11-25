@@ -360,7 +360,8 @@ export default function game(playerShips) {
         }
 
         setTimeout(() => { // enabling squares so player can hit another shot
-            addFire()
+            if(computerShips.length > 0 || playerShips.length > 0){
+            addFire()}
         }, 2000);
 
     }
